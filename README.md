@@ -32,3 +32,22 @@ $ cnpm run dev
 ### 安装SCSS,element-plus,interactjs
 
 - [scss](https://blog.csdn.net/jiangwei1994/article/details/81940324)
+- [interactjs - npm](https://www.npmjs.com/package/interactjs)
+
+### 报错
+
+> 报错内容
+```
+  history: createWebHashHistory(),
+  -----------------------------------
+  Uncaught (in promise) TypeError: Object(...) is not a function at eval
+```
+> 解决办法
+```
+ // node_module里面找不到这个方法
+ npm install vue-router@4.0.8 --save
+```
+
+### defineComponent(defineComponent最重要的是：在TypeScript下，给予了组件 正确的参数类型推断)
+
+- [Vue3 - defineComponent解决了什么？](https://blog.csdn.net/qq_36157085/article/details/109498473)
