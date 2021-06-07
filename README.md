@@ -1,24 +1,8 @@
 # vue3-vite-interact-demo
 
-## Project setup
-```
-npm install
-```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+### Build
+> [vue create v3](https://blog.csdn.net/u010411264/article/details/108431034)
+> cnpm install vue-router@4
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### 
