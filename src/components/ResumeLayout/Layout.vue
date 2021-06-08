@@ -12,10 +12,15 @@
 </template>
 
 <script lang="ts">
-// import { ref, reactive, defineComponent, defineAsyncComponent } from "vue";
-// export default {
+import {  defineComponent } from "vue";
+const Component = defineComponent({
+  setup(){
+    return{
 
-// }
+    }
+  }
+})
+export default Component
 </script>
 
 <style lang="scss" scoped>

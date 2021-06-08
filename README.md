@@ -65,6 +65,9 @@ Node Sass version 6.0.0 is incompatible with ^4.0.0 || ^5.0.0.
 
 ```
 - [node-sass版本问题](https://blog.csdn.net/li22356/article/details/111368622)
+
+npm install node-sass@4.14.1
+
 ```
 
 > 报错内容
@@ -76,6 +79,13 @@ Error: PostCSS received undefined instead of CSS string
 >解决方法
 
 [node-sass版本](https://blog.csdn.net/qq_32370913/article/details/111134060)
+
+```
+package.json安装 "sass": "^1.34.0",
+npm install node-sass@4.14.1
+npm install sass-loader@10.1.1
+
+```
 ### defineComponent(defineComponent最重要的是：在TypeScript下，给予了组件 正确的参数类型推断)
 
 - [Vue3 - defineComponent解决了什么？](https://blog.csdn.net/qq_36157085/article/details/109498473)
