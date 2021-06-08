@@ -12,10 +12,10 @@
 </template>
 
 <script lang="ts">
-import { ref, reactive, defineComponent, defineAsyncComponent } from "vue";
-export default {
+// import { ref, reactive, defineComponent, defineAsyncComponent } from "vue";
+// export default {
 
-}
+// }
 </script>
 
 <style lang="scss" scoped>

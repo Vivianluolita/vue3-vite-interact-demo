@@ -2,11 +2,11 @@
 
 
 ### Build
-> [vue create v3](https://blog.csdn.net/u010411264/article/details/108431034)
+- [vue create v3](https://blog.csdn.net/u010411264/article/details/108431034)
 
-> [vue3文档](https://www.runoob.com/vue3/vue3-install.html)
+- [vue3文档](https://www.runoob.com/vue3/vue3-install.html)
 
-> cnpm install vue-router@4
+- cnpm install vue-router@4
 
 ### vite(Vite 是一个 web 开发构建工具，由于其原生 ES 模块导入方式，可以实现闪电般的冷服务器启动。)
 
@@ -47,7 +47,35 @@ $ cnpm run dev
  // node_module里面找不到这个方法
  npm install vue-router@4.0.8 --save
 ```
+> 报错内容
+```
+在sass文件中提示Syntax Error : this.getOptions is not a function
 
+```
+> 解决方法
+```
+npm install sass-loader@10.1.1
+```
+> 报错内容
+
+```
+Node Sass version 6.0.0 is incompatible with ^4.0.0 || ^5.0.0.
+```
+> 解决方法
+
+```
+- [node-sass版本问题](https://blog.csdn.net/li22356/article/details/111368622)
+```
+
+> 报错内容
+
+```
+Error: PostCSS received undefined instead of CSS string
+```
+
+>解决方法
+
+[node-sass版本](https://blog.csdn.net/qq_32370913/article/details/111134060)
 ### defineComponent(defineComponent最重要的是：在TypeScript下，给予了组件 正确的参数类型推断)
 
 - [Vue3 - defineComponent解决了什么？](https://blog.csdn.net/qq_36157085/article/details/109498473)
