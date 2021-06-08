@@ -12,11 +12,23 @@
 </template>
 
 <script lang="ts">
-import {  defineComponent } from "vue";
+import {  defineComponent,ref } from "vue";
 const Component = defineComponent({
   setup(){
+      const ids = ref(1);
+      const current = ref(1);
     return{
+      ids,
+      current
+    }
+  },
+  components:{},
+  mounted(){
 
+  },
+  methods:{
+    add(){
+      this.ids +=1
     }
   }
 })

@@ -86,6 +86,7 @@ npm install node-sass@4.14.1
 npm install sass-loader@10.1.1
 
 ```
-### defineComponent(defineComponent最重要的是：在TypeScript下，给予了组件 正确的参数类型推断)
+### defineComponent(在TypeScript下，给予了组件 正确的参数类型推断)
 
 - [Vue3 - defineComponent解决了什么？](https://blog.csdn.net/qq_36157085/article/details/109498473)
+- [Vue3.0 新特性以及使用变更总结](https://blog.csdn.net/weixin_39843414/article/details/115018924)
