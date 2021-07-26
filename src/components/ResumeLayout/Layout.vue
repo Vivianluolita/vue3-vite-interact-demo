@@ -6,30 +6,43 @@
         >增加一个模块</el-button
       >
     </div>
-    <div class="menu-wrap">
+    <div class="menu-wrap" >
+      <WorkExp
+        v-for="item in ids"
+        :item="item"
+        :isCurrent="current.id === item.id"
+        :key="item.id"
+        @current="currentChange"
+      />
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import {  defineComponent,ref } from "vue";
+import WorkExp from "../ResumeItem/WorkExp.vue";
 const Component = defineComponent({
   setup(){
-      const ids = ref(1);
+      let ids = ref(1);
       const current = ref(1);
     return{
       ids,
       current
     }
   },
-  components:{},
+  components: {
+    WorkExp,
+  },
   mounted(){
 
   },
   methods:{
     add(){
       this.ids +=1
-    }
+    },
+    currentChange(e) {
+      this.current = e;
+    },
   }
 })
 export default Component

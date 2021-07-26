@@ -1,36 +1,28 @@
 <template>
-  <div
-    class="work-item"
-    :class="{ isOver: isCurrent }"
-    :ref="'workItem' + item.id"
-    @mousedown="workItemDown"
-  >
-    <div class="item-tool">
-      <div class="line-1 line"></div>
-      <div class="line-2 line"></div>
-      <div class="line-3 line"></div>
-      <div class="line-4 line"></div>
-      <i class="iconfont icon-shanchu close" @click="del"></i>
-    </div>
-    <div class="item-content">hello{{ item.id }}</div>
+  <div class="work-item" ref="workItem">
+    hello{{ id }}
+    <i
+      class="iconfont icon-shanchu close"
+      :class="{ isOver: current === id }"
+    ></i>
   </div>
 </template>
 
 <script lang="ts">
-import { ref, reactive, defineComponent, inject } from "vue";
+import { ref, defineComponent, inject } from "vue";
+import globalThis from '../../utils/window.js'
 
 const Component = defineComponent({
   props: {
-    item: {
-      type: Object,
-      default: {},
+    id: {
+      type: Number,
+      default: 1,
     },
-    isCurrent: {
-      type: Boolean,
-      default: false,
+    current: {
+      type: Number,
+      default: 1,
     },
   },
-
   setup() {
     const interact = inject("interact");
     const isActive = ref(false);
@@ -40,64 +32,59 @@ const Component = defineComponent({
       isActive,
     };
   },
-  inject: ["ids"],
-  mounted() {},
-  methods: {
-    del() {
-      let index = this.ids.findIndex((item) => item.id === this.item.id);
-      this.ids.splice(index, 1);
-    },
-    workItemDown(e) {
-      this.item.target = this.$refs[`workItem${this.item.id}`];
-      this.setInteract();
-      this.$emit("current", this.item);
-    },
-    setInteract() {
-      let that = this;
-      this.interact(".menu-wrap").dropzone({
+  mounted() {
+    this.interact(".work-item")
+      .resizable({
+        // resize from all edges and corners
+        edges: { left: true, right: true, bottom: true, top: true },
         listeners: {
-          drop: globalThis.dropListener.bind(that, that.ids),
+          move(event) {
+            var target = event.target;
+            var x = parseFloat(target.getAttribute("data-x")) || 0;
+            var y = parseFloat(target.getAttribute("data-y")) || 0;
+
+            // update the element's style
+            target.style.width = event.rect.width + "px";
+            target.style.height = event.rect.height + "px";
+
+            // translate when resizing from top or left edges
+            x += event.deltaRect.left;
+            y += event.deltaRect.top;
+
+            target.style.transform = "translate(" + x + "px," + y + "px)";
+
+            target.setAttribute("data-x", x);
+            target.setAttribute("data-y", y);
+          },
         },
+        modifiers: [
+          // keep the edges inside the parent
+          this.interact.modifiers.restrictEdges({
+            outer: "parent",
+          }),
+
+          // minimum size
+          this.interact.modifiers.restrictSize({
+            min: { width: 100, height: 50 },
+          }),
+        ],
+
+        inertia: true,
+      })
+      .draggable({
+        listeners: { move: globalThis.dragMoveListener },
+        inertia: true,
+        modifiers: [
+          this.interact.modifiers.restrictRect({
+            restriction: "parent",
+            endOnly: true,
+          }),
+        ],
       });
-      this.interact(".work-item")
-        .resizable({
-          // resize from all edges and corners
-          edges: {
-            left: ".line-4",
-            right: ".line-2",
-            bottom: ".line-3",
-            top: ".line-1",
-          },
-          listeners: {
-            move: globalThis.resizeMoveListener.bind(that.item),
-          },
-          modifiers: [
-            // keep the edges inside the parent
-            this.interact.modifiers.restrictEdges({
-              outer: "parent",
-            }),
-
-            // minimum size
-            this.interact.modifiers.restrictSize({
-              min: { width: 100, height: 50 },
-            }),
-          ],
-
-          inertia: true,
-        })
-        .draggable({
-          listeners: {
-            start: globalThis.dragStartListener.bind(that.item),
-            move: globalThis.dragMoveListener.bind(that.item),
-          },
-          inertia: true,
-          modifiers: [
-            this.interact.modifiers.restrictRect({
-              restriction: "parent",
-              endOnly: true,
-            }),
-          ],
-        });
+  },
+  methods: {
+    mouseover() {
+      this.isActive = true;
     },
   },
 });
@@ -106,8 +93,7 @@ export default Component;
 
 <style lang="scss" scoped>
 .work-item {
-  width: 100px;
-  height: 50px;
+  width: 4rem;
   border-radius: 0.2rem;
   padding: 0.5rem;
   background-color: #29e;
@@ -121,62 +107,18 @@ export default Component;
   position: absolute;
   left: 0;
   top: 0;
-  &.isOver {
-    .item-tool {
+  .close {
+    color: red;
+    font-size: 0.8rem;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translate(100%, -50%);
+    display: none;
+    &.isOver {
       display: block;
     }
-  }
-  .item-tool {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    display: none;
-
-    .line {
-      position: absolute;
-      &.line-1 {
-        border-top: 2px dashed rgb(131, 224, 10);
-        width: 100%;
-        height: 3px;
-        top: -3px;
-        left: 0;
-      }
-      &.line-2 {
-        border-right: 2px dashed rgb(131, 224, 10);
-        width: 3px;
-        height: 100%;
-        top: 0%;
-        right: -3px;
-      }
-      &.line-3 {
-        border-bottom: 2px dashed rgb(131, 224, 10);
-        width: 100%;
-        height: 3px;
-        bottom: -3px;
-        left: 0;
-      }
-      &.line-4 {
-        border-left: 2px dashed rgb(131, 224, 10);
-        width: 3px;
-        height: 100%;
-        top: 0%;
-        left: -3px;
-      }
-    }
-    .close {
-      position: absolute;
-      top: 50%;
-      right: -5px;
-      transform: translate(100%, -50%);
-      color: red;
-      font-size: 0.8rem;
-      cursor: pointer;
-      z-index: 99;
-    }
-  }
-  .item-content {
+    cursor: pointer;
   }
 }
 </style>
